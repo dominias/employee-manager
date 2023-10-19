@@ -57,10 +57,10 @@ class User(AbstractBaseUser, PermissionsMixin):
         verbose_name = 'User'
         verbose_name_plural = 'Users'
 
+#relationship of an employee belonging to a department (one to many)
 class Department(models.Model):
     deptID = models.IntegerField(primary_key=True)
     deptName = models.CharField(max_length=100)
 
-    #relationship of an employee belonging to a department (one to many)
 
 
