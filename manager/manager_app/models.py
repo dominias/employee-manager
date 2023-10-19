@@ -44,6 +44,9 @@ class User(AbstractBaseUser, PermissionsMixin):
     date_joined = models.DateTimeField(default = timezone.now)
     last_login = models.DateTimeField(blank = True, null = True)
 
+    #one to many relationship with department
+    department = models.ForeignKey(Department, on_delete=models.SET_NULL)
+
     objects = CustomUserManager()
 
     USERNAME_FIELD = 'username'
@@ -53,3 +56,11 @@ class User(AbstractBaseUser, PermissionsMixin):
     class Meta:
         verbose_name = 'User'
         verbose_name_plural = 'Users'
+
+    class Department(models.Model):
+        deptID = models.IntegerField(primary_key=True)
+        deptName = models.CharField(max_length=100)
+
+    #relationship of an employee belonging to a department (one to many)
+
+
