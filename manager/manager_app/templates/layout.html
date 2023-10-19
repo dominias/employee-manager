@@ -1,0 +1,38 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Employee Manager</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" type="text/css" href="{% static 'styles.css' %}" />
+    {% block loadInHead %} {% endblock %}
+  </head>
+
+  <body>
+    <!-- Header  -->
+    <header class="header">
+      <nav class="header__content">
+        <!-- Buttons -->
+        <div class="header__buttons">
+          <!-- Home -->
+          <button class="header__button">
+            <a style="all: unset" href="{% url 'index' %}">Home</a>
+          </button>
+
+          <!-- Add Employee -->
+          <button class="header__button">
+            <a style="all: unset" href="/post">Add Employee</a>
+          </button>
+        </div>
+
+        <!-- Search -->
+        <div class="header__search">
+          <input type="text" placeholder="Search" />
+        </div>
+      </nav>
+    </header>
+
+    {% block content %} {% endblock %}
+  </body>
+</html>
