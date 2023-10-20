@@ -4,6 +4,32 @@
 
 {% endblock %} {% block content %}
 
-<h1>TESTING</h1>
+<main class="main-container">
+    <section class="content-container">
+        <div class="content">
+            {% for department in departments %}
+
+            <p>{{department.department_name}} | {{department.deparment_id}}</p>
+            <p>{{department.department_description}}</p>
+            <div>
+                {% for user in department.users %}
+                <p>{{user.username}} | {{user.email}}</p>
+
+                {% empty %}
+                
+                <p>DEPARTMENT IS EMPTY.</p>
+
+                {% endfor %}
+
+            </div>    
+
+            {% empty %}
+
+            <p>NO DEPARTMENTS EXIST.</p>
+            
+            {% endfor %}
+        </div>
+    </section>
+</main>
 
 {% endblock %}

@@ -1,11 +1,25 @@
 from django.db import models
 from django.contrib.auth.models import UserManager, PermissionsMixin, AbstractBaseUser
 from django.db.models.base import Model
+from django.shortcuts import get_object_or_404
 
 from django.utils import timezone
 
 def user_directory_path(instance, filename):
     return 'user_{0}/{1}'.format(instance.user.id, filename)
+
+# Relationship of an employee belonging to a department (one to many)
+class Department(models.Model):
+    department_id = models.IntegerField(primary_key = True)
+    department_name = models.CharField(max_length = 100)
+    department_description = models.CharField(max_length = 200)
+
+    def __str__(self):
+        return self.department_name;
+
+    class Meta:
+        verbose_name = "Department"
+        verbose_name_plural = "Departments"
 
 class CustomUserManager(UserManager):
     def _create_user(self, username, email, password, **extra_fields):
@@ -44,8 +58,8 @@ class User(AbstractBaseUser, PermissionsMixin):
     date_joined = models.DateTimeField(default = timezone.now)
     last_login = models.DateTimeField(blank = True, null = True)
 
-    #one to many relationship with department
-    department = models.ForeignKey(Department, on_delete=models.SET_NULL)
+    # One to many relationship with department
+    department = models.ForeignKey(Department, on_delete = models.SET_NULL, null = True)
 
     objects = CustomUserManager()
 
@@ -57,10 +71,36 @@ class User(AbstractBaseUser, PermissionsMixin):
         verbose_name = 'User'
         verbose_name_plural = 'Users'
 
-#relationship of an employee belonging to a department (one to many)
-class Department(models.Model):
-    deptID = models.IntegerField(primary_key=True)
-    deptName = models.CharField(max_length=100)
+class Stream(models.Model):
+    user = models.ForeignKey(User, on_delete = models.CASCADE, related_name = "stream_user")
+    department = models.ForeignKey(Department, on_delete = models.CASCADE, null = True)
+
+    def add_department(sender, instance, *args, **kwargs):
+        
+        if user.is_superuser:
+            departments = Departments.objects.all()
+
+            for d in departments:
+
+                u, created = User.objects.get_or_create(username = user.username, email = user.email, department = d)
+
+                stream = Stream(user = user, department = d)
+                stream.save()
+
+                stream = Stream(user = u, department = d)
+                stream.save()
+
+        else:
+
+            if department:
+                stream = Stream(user = user, department = department)
+                stream.save()
+
+                users = Users.objects.filter(department = department)
+
+                for u in users:
+                    stream = Stream(user = u, department = department)
+                    stream.save()
 
 
 
