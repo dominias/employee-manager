@@ -426,6 +426,16 @@ img {
   }
 }
 
+@media (max-width: 620px) {
+  h4 {
+    padding: 10px 0;
+  }
+
+  table {
+    padding: 10px 0;
+  }
+}
+
 .header__button {
   background-color: var(--link);
   color: var(--primary);
