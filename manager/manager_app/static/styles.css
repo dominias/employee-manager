@@ -35,17 +35,6 @@ textarea {
   --header-height: 44px;
   --nav-height: 44px;
 }
-:root.darkTheme {
-  --primary: hsl(0, 0%, 0%);
-  --secondary: hsl(0, 0%, 2%);
-  --border: hsl(0, 0%, 15%);
-
-  --story-border: hsl(0, 0%, 44%);
-  --img-border: hsla(0, 0%, 100%, 0.1);
-
-  --text-dark: hsl(0, 0%, 98%);
-  --text-light: hsl(0, 0%, 60%);
-}
 
 /* -------------------------------------------------- */
 
@@ -452,4 +441,35 @@ img {
 
 .header__button:hover {
   background-color: #818181;
+}
+
+.spaced_row {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.spaced_small {
+  width: 50px;
+  padding: 1px;
+  border: 0.5px solid #818181;
+}
+
+.spaced {
+  width: 150px;
+  padding: 1px;
+  border: 0.5px solid #818181;
+}
+
+.textfield {
+  left: 50px;
+  flex: 1;
+  height: 36px;
+  padding: 8px;
+  margin-bottom: 5px;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  font-size: 14px;
+  font-weight: 400;
+  color: var(--text-dark);
+  outline: none;
 }

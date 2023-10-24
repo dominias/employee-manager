@@ -1,0 +1,24 @@
+{% extends "layout.html" %} {% load static %} {% block loadInHead %}
+
+<script src="{% static 'manager_app/index.js' %}"></script>
+
+{% endblock %} {% block content %}
+<main class="main-container">
+    <section class="content-container">
+        <div>
+            <form method = "POST" action = "{% url 'create_user' %}">
+                {% csrf_token %}
+                <h4 class="textfield">Username: {{form.username}}</h4>
+                <h4 class="textfield">Email: {{form.email}}</h4>
+                <h4 class="textfield">Password: {{form.password}}</h4>
+                <h4 class="textfield">Department: {{form.department}}</h4>
+                <h4 class="textfield">Name: {{form.name}}</h4>
+                <h4 class="textfield">Role: {{form.role}}</h4>
+                <h4 class="textfield">ID: {{form.identification}}</h4>
+            <button class = "header__button" type = "submit">Create</button>
+            </form>
+        </div>
+    </section>
+</main>
+
+{% endblock %}

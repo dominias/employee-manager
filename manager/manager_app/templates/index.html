@@ -9,11 +9,17 @@
         <div class="content">
             {% for department in departments %}
 
-            <p>{{department.department_name}} | {{department.deparment_id}}</p>
-            <p>{{department.department_description}}</p>
-            <div>
+            <h1>{{department.department_name}} | {{department.department_id}}</h1>
+            <h4>{{department.department_description}}</h4>
+            <table>
                 {% for user in department.users %}
-                <p>{{user.username}} | {{user.email}}</p>
+                <tr class="spaced_row">
+                <td class="spaced_small">{{user.identification}}</td>
+                <td class="spaced">{{user.name}}</td>
+                <td class="spaced">{{user.username}}</td>
+                <td class="spaced">{{user.email}}</td>
+                <td class="spaced">{{user.role}}</td>
+                </tr>
 
                 {% empty %}
                 
@@ -21,7 +27,7 @@
 
                 {% endfor %}
 
-            </div>    
+            </table>    
 
             {% empty %}
 

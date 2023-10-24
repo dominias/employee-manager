@@ -22,35 +22,38 @@ class Department(models.Model):
         verbose_name_plural = "Departments"
 
 class CustomUserManager(UserManager):
-    def _create_user(self, username, email, password, **extra_fields):
+    def _create_user(self, username, email, password, name, role, identification, **extra_fields):
 
         if not username:
             raise ValueError("No valid username provided.");
 
         email = self.normalize_email(email)
 
-        user = self.model(username = username, **extra_fields)
+        user = self.model(username = username, email = email, name = name, identification = identification, role = role, **extra_fields)
         user.set_password(password)
         user.save(using = self._db)
 
         return user;
 
-    def create_user(self, username = None, email = None, password = None, **extra_fields):
+    def create_user(self, username = None, email = None, password = None, name = None, role = None, identification = None, **extra_fields):
         extra_fields.setdefault('is_staff', False)
         extra_fields.setdefault('is_superuser', False)
 
-        return self._create_user(username, email, password, **extra_fields)
+        return self._create_user(username, email, password, name, role, identification, **extra_fields)
 
-    def create_superuser(self, username = None, email = None, password = None, **extra_fields):
+    def create_superuser(self, username = None, email = None, password = None, name = None, role = None, identification = None, **extra_fields):
         extra_fields.setdefault('is_staff', True)
         extra_fields.setdefault('is_superuser', True)
 
-        return self._create_user(username, email, password, **extra_fields)
+        return self._create_user(username, email, password, name, role, identification, **extra_fields)
 
 class User(AbstractBaseUser, PermissionsMixin):
     username = models.CharField(max_length = 32, blank = True, default = '', unique = True)
     email = models.EmailField(blank = True, default = '', unique = True) 
-
+    name = models.CharField(max_length = 32)
+    role = models.CharField(max_length = 32)
+    identification = models.IntegerField()
+    
     is_active = models.BooleanField(default = True)
     is_staff = models.BooleanField(default = False)
     is_superuser = models.BooleanField(default = False)
